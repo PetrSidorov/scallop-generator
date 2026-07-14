@@ -12,10 +12,10 @@ const DEFAULT_VARS = {
   vertical_gap: 2,
   vertical_start: 16,
   vertical_end: 16,
-  top_left_corner: 5,
-  bottom_left_corner: 5,
-  top_right_corner: 5,
-  bottom_right_corner: 5,
+  top_left_corner: 10,
+  bottom_left_corner: 10,
+  top_right_corner: 10,
+  bottom_right_corner: 10,
 };
 
 export const DEFAULT_STATE = {
