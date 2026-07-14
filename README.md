@@ -1,5 +1,6 @@
 # Scallop Generator
 
+https://petrsidorov.github.io/scallop-generator/
 A visual tool for designing CSS scalloped edges using `radial-gradient` — pure CSS. Adjust shape parameters with sliders, preview changes live, and copy ready-to-use CSS, HTML, or a complete standalone HTML file.
 
 ---
