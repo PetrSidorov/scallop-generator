@@ -6,12 +6,8 @@ const DEFAULT_VARS = {
   ellipse_ratio: 1.2,
   horizontal_radius: 6,
   horizontal_gap: 6,
-  horizontal_start: 16,
-  horizontal_end: 16,
   vertical_radius: 4,
   vertical_gap: 2,
-  vertical_start: 16,
-  vertical_end: 16,
   top_left_corner: 10,
   bottom_left_corner: 10,
   top_right_corner: 10,
@@ -29,8 +25,6 @@ export const DEFAULT_STATE = {
 export const H_TO_V = {
   horizontal_radius: "vertical_radius",
   horizontal_gap: "vertical_gap",
-  horizontal_start: "vertical_start",
-  horizontal_end: "vertical_end",
 };
 
 export const EDGES = ["top", "right", "bottom", "left"];

@@ -27,14 +27,14 @@ export function computeVals(vars) {
     hWidth,
     hStep,
     hRadius,
-    hStart: vars.horizontal_start,
-    hEnd: vars.horizontal_end,
     vWidth,
     vHeight,
     vStep,
     vRadius,
-    vStart: vars.vertical_start,
-    vEnd: vars.vertical_end,
+    topLeft: vars.top_left_corner,
+    topRight: vars.top_right_corner,
+    bottomLeft: vars.bottom_left_corner,
+    bottomRight: vars.bottom_right_corner,
   };
 }
 
@@ -130,8 +130,8 @@ export function buildCSS(vars) {
 .scallop-wrapper__edge-top {
   position: absolute;
   top: -1px;
-  left: ${px(v.hStart)};
-  width: calc(100% - ${px(v.hStart + v.hEnd)});
+  left: ${px(v.topLeft)};
+  width: calc(100% - ${px(v.topLeft + v.topRight)});
   height: ${px(v.hHeight + 1)};
   pointer-events: none;
   background:
@@ -145,8 +145,8 @@ export function buildCSS(vars) {
 .scallop-wrapper__edge-bottom {
   position: absolute;
   bottom: -1px;
-  left: ${px(v.hStart)};
-  width: calc(100% - ${px(v.hStart + v.hEnd)});
+  left: ${px(v.bottomLeft)};
+  width: calc(100% - ${px(v.bottomLeft + v.bottomRight)});
   height: ${px(v.hHeight + 1)};
   pointer-events: none;
   background:
@@ -159,10 +159,10 @@ export function buildCSS(vars) {
 
 .scallop-wrapper__edge-right {
   position: absolute;
-  top: ${px(v.vStart)};
+  top: ${px(v.topRight)};
   right: -1px;
   width: ${px(v.vWidth + 1)};
-  height: calc(100% - ${px(v.vStart + v.vEnd)});
+  height: calc(100% - ${px(v.topRight + v.bottomRight)});
   pointer-events: none;
   background:
     radial-gradient(
@@ -174,10 +174,10 @@ export function buildCSS(vars) {
 
 .scallop-wrapper__edge-left {
   position: absolute;
-  top: ${px(v.vStart)};
+  top: ${px(v.topLeft)};
   left: -1px;
   width: ${px(v.vWidth + 1)};
-  height: calc(100% - ${px(v.vStart + v.vEnd)});
+  height: calc(100% - ${px(v.topLeft + v.bottomLeft)});
   pointer-events: none;
   background:
     radial-gradient(
