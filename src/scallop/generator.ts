@@ -1,16 +1,21 @@
-import { H_TO_V } from "./constants.js";
-export function mirrorToVertical(vars) {
-  const mirrored = {};
-  for (const [hKey, vKey] of Object.entries(H_TO_V))
-    mirrored[vKey] = vars[hKey];
-  return { ...vars, ...mirrored };
+import { H_TO_V, type ScallopVars } from "./constants";
+
+export function mirrorToVertical(vars: ScallopVars): ScallopVars {
+  const mirrored = Object.fromEntries(
+    Object.entries(H_TO_V).map(([hKey, vKey]) => [
+      vKey,
+      vars[hKey as keyof typeof H_TO_V],
+    ]),
+  );
+
+  return { ...vars, ...mirrored } as ScallopVars;
 }
 
-export function px(n) {
+export function px(n: number): string {
   return `${+n.toFixed(2)}px`;
 }
 
-export function computeVals(vars) {
+export function computeVals(vars: ScallopVars) {
   const hHeight = vars.horizontal_radius * vars.cut_depth;
   const hWidth = vars.horizontal_radius * 2 * vars.ellipse_ratio;
   const hStep = hWidth + vars.horizontal_gap;
@@ -38,7 +43,7 @@ export function computeVals(vars) {
   };
 }
 
-export function buildFullTemplate(vars, frameColor) {
+export function buildFullTemplate(vars: ScallopVars, frameColor: string): string {
   const css = buildCSS(vars);
   return `<!DOCTYPE html>
 <html lang="en">
@@ -108,7 +113,7 @@ ${css}
 </html>`;
 }
 
-export function buildHTML() {
+export function buildHTML(): string {
   return `<div class="scallop-wrapper">
   <div class="scallop-wrapper__edge-top"></div>
   <div class="scallop-wrapper__edge-right"></div>
@@ -119,8 +124,9 @@ export function buildHTML() {
 </div>`;
 }
 
-export function buildCSS(vars) {
+export function buildCSS(vars: ScallopVars): string {
   const v = computeVals(vars);
+
   return `.scallop-wrapper {
   position: relative;
   width: 100%;

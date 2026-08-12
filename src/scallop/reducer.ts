@@ -1,10 +1,19 @@
+import { DEFAULT_STATE, type Edge, type ScallopState, type ScallopVars } from "./constants";
 import { mirrorToVertical } from "./generator";
-import { DEFAULT_STATE } from "./constants";
-export function reducer(state, action) {
+
+export type ScallopAction =
+  | { type: "SET_VAR"; key: keyof ScallopVars; val: number | string }
+  | { type: "SET_FRAME_COLOR"; color: string }
+  | { type: "SET_SCALLOP_COLOR"; color: string }
+  | { type: "TOGGLE_SYNC" }
+  | { type: "TOGGLE_SYNC_EDGES" }
+  | { type: "TOGGLE_EDGE"; edge: Edge }
+  | { type: "RESET" };
+
+export function reducer(state: ScallopState, action: ScallopAction): ScallopState {
   switch (action.type) {
     case "SET_VAR": {
-      const { key, val } = action;
-      const updated = { ...state.vars, [key]: val };
+      const updated = { ...state.vars, [action.key]: action.val } as ScallopVars;
       return {
         ...state,
         vars: state.syncEdges ? mirrorToVertical(updated) : updated,
@@ -20,7 +29,10 @@ export function reducer(state, action) {
     }
 
     case "SET_SCALLOP_COLOR":
-      return { ...state, vars: { ...state.vars, scallop_color: action.color } };
+      return {
+        ...state,
+        vars: { ...state.vars, scallop_color: action.color },
+      };
 
     case "TOGGLE_SYNC": {
       const synced = !state.synced;
@@ -39,7 +51,7 @@ export function reducer(state, action) {
       };
     }
 
-    case "TOGGLE_EDGE": {
+    case "TOGGLE_EDGE":
       return {
         ...state,
         activeEdges: {
@@ -47,7 +59,6 @@ export function reducer(state, action) {
           [action.edge]: !state.activeEdges[action.edge],
         },
       };
-    }
 
     case "RESET":
       return DEFAULT_STATE;

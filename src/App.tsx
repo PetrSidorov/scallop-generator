@@ -1,8 +1,8 @@
 import { useEffect, useReducer, useRef, useState } from "react";
-import { Controls } from "./components/Controls";
+import { Controls, type CopyStatus } from "./components/Controls";
 import { CodeOutput } from "./components/CodeOutput";
 import { Preview } from "./components/Preview";
-import { DEFAULT_STATE } from "./scallop/constants";
+import { DEFAULT_STATE, type ScallopVars } from "./scallop/constants";
 import { reducer } from "./scallop/reducer";
 import {
   buildCSS,
@@ -12,13 +12,13 @@ import {
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, DEFAULT_STATE);
-  const [copyStatus, setCopyStatus] = useState(null);
-  const copyResetTimerRef = useRef(null);
+  const [copyStatus, setCopyStatus] = useState<CopyStatus | null>(null);
+  const copyResetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const { vars, frameColor, synced, syncEdges, activeEdges } = state;
 
   const effectiveScallopColor = synced ? frameColor : vars.scallop_color;
-  const exportVars = {
+  const exportVars: ScallopVars = {
     ...vars,
     scallop_color: effectiveScallopColor,
   };
@@ -31,7 +31,7 @@ export default function App() {
     };
   }, []);
 
-  const copyTo = async (kind) => {
+  const copyTo = async (kind: CopyStatus["kind"]) => {
     const text =
       kind === "css"
         ? buildCSS(exportVars)
@@ -81,12 +81,7 @@ export default function App() {
           frameColor={frameColor}
           scallopColor={effectiveScallopColor}
           activeEdges={activeEdges}
-          onToggleEdge={(edge) =>
-            dispatch({
-              type: "TOGGLE_EDGE",
-              edge,
-            })
-          }
+          onToggleEdge={(edge) => dispatch({ type: "TOGGLE_EDGE", edge })}
         />
 
         <Controls
@@ -96,29 +91,15 @@ export default function App() {
           syncEdges={syncEdges}
           copyStatus={copyStatus}
           onSetFrameColor={(color) =>
-            dispatch({
-              type: "SET_FRAME_COLOR",
-              color,
-            })
+            dispatch({ type: "SET_FRAME_COLOR", color })
           }
           onSetScallopColor={(color) =>
-            dispatch({
-              type: "SET_SCALLOP_COLOR",
-              color,
-            })
+            dispatch({ type: "SET_SCALLOP_COLOR", color })
           }
           onToggleSync={() => dispatch({ type: "TOGGLE_SYNC" })}
-          onToggleSyncEdges={() =>
-            dispatch({
-              type: "TOGGLE_SYNC_EDGES",
-            })
-          }
+          onToggleSyncEdges={() => dispatch({ type: "TOGGLE_SYNC_EDGES" })}
           onSetVariable={(key, val) =>
-            dispatch({
-              type: "SET_VAR",
-              key,
-              val,
-            })
+            dispatch({ type: "SET_VAR", key, val })
           }
           onReset={() => dispatch({ type: "RESET" })}
           onCopyStandalone={() => copyTo("preview")}

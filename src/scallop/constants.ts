@@ -1,6 +1,45 @@
 export const DEFAULT_FRAME_COLOR = "#000000";
 
-const DEFAULT_VARS = {
+export type Edge = "top" | "right" | "bottom" | "left";
+
+export interface ScallopVars {
+  scallop_color: string;
+  cut_depth: number;
+  ellipse_ratio: number;
+  horizontal_radius: number;
+  horizontal_gap: number;
+  vertical_radius: number;
+  vertical_gap: number;
+  top_left_corner: number;
+  bottom_left_corner: number;
+  top_right_corner: number;
+  bottom_right_corner: number;
+}
+
+export interface ScallopState {
+  vars: ScallopVars;
+  frameColor: string;
+  synced: boolean;
+  syncEdges: boolean;
+  activeEdges: Record<Edge, boolean>;
+}
+
+export interface SliderItem {
+  key: keyof ScallopVars;
+  label: string;
+  min: number;
+  max: number;
+  step: number;
+}
+
+export interface SliderGroup {
+  group: string;
+  key: "global" | "horizontal" | "vertical" | "corners";
+  color: string;
+  items: SliderItem[];
+}
+
+const DEFAULT_VARS: ScallopVars = {
   scallop_color: "#f3dde9",
   cut_depth: 1.2,
   ellipse_ratio: 1.2,
@@ -14,7 +53,7 @@ const DEFAULT_VARS = {
   bottom_right_corner: 10,
 };
 
-export const DEFAULT_STATE = {
+export const DEFAULT_STATE: ScallopState = {
   vars: DEFAULT_VARS,
   frameColor: DEFAULT_FRAME_COLOR,
   synced: true,
@@ -25,11 +64,11 @@ export const DEFAULT_STATE = {
 export const H_TO_V = {
   horizontal_radius: "vertical_radius",
   horizontal_gap: "vertical_gap",
-};
+} as const;
 
-export const EDGES = ["top", "right", "bottom", "left"];
+export const EDGES: Edge[] = ["top", "right", "bottom", "left"];
 
-export const SLIDERS = [
+export const SLIDERS: SliderGroup[] = [
   {
     group: "Global",
     key: "global",
@@ -99,4 +138,3 @@ export const SLIDERS = [
     ],
   },
 ];
-

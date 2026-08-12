@@ -1,5 +1,25 @@
-import { SLIDERS } from "../scallop/constants";
+import { SLIDERS, type ScallopVars } from "../scallop/constants";
 import { SliderControl } from "./SliderControl";
+
+export interface CopyStatus {
+  kind: "css" | "html" | "preview";
+  status: "success" | "error";
+}
+
+interface ControlsProps {
+  vars: ScallopVars;
+  frameColor: string;
+  synced: boolean;
+  syncEdges: boolean;
+  copyStatus: CopyStatus | null;
+  onSetFrameColor: (color: string) => void;
+  onSetScallopColor: (color: string) => void;
+  onToggleSync: () => void;
+  onToggleSyncEdges: () => void;
+  onSetVariable: (key: keyof ScallopVars, value: number) => void;
+  onReset: () => void;
+  onCopyStandalone: () => void;
+}
 
 export function Controls({
   vars,
@@ -14,7 +34,7 @@ export function Controls({
   onSetVariable,
   onReset,
   onCopyStandalone,
-}) {
+}: ControlsProps) {
   return (
     <aside className="controls-col">
       <div className="panel color-panel">
@@ -23,16 +43,13 @@ export function Controls({
         <div className="color-row">
           <label htmlFor="frame-color">Frame background</label>
           <div className="color-swatch-wrap">
-            <div
-              className="color-swatch"
-              style={{ background: frameColor }}
-            >
+            <div className="color-swatch" style={{ background: frameColor }}>
               <input
                 id="frame-color"
                 name="frame-color"
                 type="color"
                 value={frameColor}
-                onChange={(e) => onSetFrameColor(e.target.value)}
+                onChange={(event) => onSetFrameColor(event.target.value)}
               />
             </div>
             <code className="color-hex">{frameColor}</code>
@@ -52,7 +69,7 @@ export function Controls({
                   name="scallop-color"
                   type="color"
                   value={vars.scallop_color}
-                  onChange={(e) => onSetScallopColor(e.target.value)}
+                  onChange={(event) => onSetScallopColor(event.target.value)}
                 />
               </div>
               <code className="color-hex">{vars.scallop_color}</code>
@@ -80,9 +97,7 @@ export function Controls({
             onClick={onToggleSyncEdges}
           >
             <span className="sync-icon">{syncEdges ? "⇔" : "⇌"}</span>
-            <span>
-              {syncEdges ? "H & V edges synced" : "Edges independent"}
-            </span>
+            <span>{syncEdges ? "H & V edges synced" : "Edges independent"}</span>
           </button>
         </div>
       </div>
@@ -91,10 +106,7 @@ export function Controls({
         syncEdges ? group.key !== "vertical" : true,
       ).map((group) => (
         <div key={group.key} className="panel slider-panel">
-          <div
-            className="panel-section-label"
-            style={{ color: group.color }}
-          >
+          <div className="panel-section-label" style={{ color: group.color }}>
             {group.group}
           </div>
 
@@ -106,8 +118,8 @@ export function Controls({
               min={min}
               max={max}
               step={step}
-              value={vars[key]}
-              onChange={(val) => onSetVariable(key, val)}
+              value={vars[key] as number}
+              onChange={(value) => onSetVariable(key, value)}
               color={group.color}
             />
           ))}

@@ -1,4 +1,13 @@
-import { EDGES } from "../scallop/constants";
+import type { CSSProperties } from "react";
+import { EDGES, type Edge, type ScallopVars } from "../scallop/constants";
+
+interface PreviewProps {
+  vars: ScallopVars;
+  frameColor: string;
+  scallopColor: string;
+  activeEdges: Record<Edge, boolean>;
+  onToggleEdge: (edge: Edge) => void;
+}
 
 export function Preview({
   vars,
@@ -6,7 +15,7 @@ export function Preview({
   scallopColor,
   activeEdges,
   onToggleEdge,
-}) {
+}: PreviewProps) {
   const scallopCssVars = {
     "--scallop-color": scallopColor,
     "--cut-depth": vars.cut_depth,
@@ -19,7 +28,7 @@ export function Preview({
     "--bottom-left-corner": `${vars.bottom_left_corner}px`,
     "--top-right-corner": `${vars.top_right_corner}px`,
     "--bottom-right-corner": `${vars.bottom_right_corner}px`,
-  };
+  } as CSSProperties;
 
   return (
     <section className="panel preview-panel">
@@ -35,9 +44,7 @@ export function Preview({
           <div className="scallop-wrapper" style={scallopCssVars}>
             {activeEdges.top && <div className="scallop-wrapper__edge-top" />}
             {activeEdges.right && <div className="scallop-wrapper__edge-right" />}
-            {activeEdges.bottom && (
-              <div className="scallop-wrapper__edge-bottom" />
-            )}
+            {activeEdges.bottom && <div className="scallop-wrapper__edge-bottom" />}
             {activeEdges.left && <div className="scallop-wrapper__edge-left" />}
 
             <div className="inner-frame">

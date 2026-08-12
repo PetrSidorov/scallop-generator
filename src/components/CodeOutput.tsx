@@ -1,14 +1,30 @@
 import { useState } from "react";
 import { buildCSS, buildHTML } from "../scallop/generator";
+import type { ScallopVars } from "../scallop/constants";
+import type { CopyStatus } from "./Controls";
 
-export function CodeOutput({ exportVars, copyStatus, onCopy }) {
-  const [activeTab, setActiveTab] = useState("html");
+interface CodeOutputProps {
+  exportVars: ScallopVars;
+  copyStatus: CopyStatus | null;
+  onCopy: (kind: CopyStatus["kind"]) => void;
+}
+
+export function CodeOutput({
+  exportVars,
+  copyStatus,
+  onCopy,
+}: CodeOutputProps) {
+  const [activeTab, setActiveTab] = useState<"html" | "css">("html");
 
   return (
     <section className="panel code-panel">
       <div className="code-header">
-        <div className="code-tabs" role="tablist" aria-label="Generated code format">
-          {["html", "css"].map((tab) => (
+        <div
+          className="code-tabs"
+          role="tablist"
+          aria-label="Generated code format"
+        >
+          {(["html", "css"] as const).map((tab) => (
             <button
               key={tab}
               id={`code-tab-${tab}`}
