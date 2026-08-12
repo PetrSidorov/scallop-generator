@@ -52,14 +52,6 @@ export const SLIDERS = [
     items: [
       { key: "horizontal_radius", label: "Radius", min: 2, max: 40, step: 1 },
       { key: "horizontal_gap", label: "Gap", min: 0, max: 40, step: 1 },
-      // {
-      //   key: "horizontal_start",
-      //   label: "Start Offset",
-      //   min: 0,
-      //   max: 80,
-      //   step: 1,
-      // },
-      // { key: "horizontal_end", label: "End Offset", min: 0, max: 80, step: 1 },
     ],
   },
   {
@@ -69,14 +61,6 @@ export const SLIDERS = [
     items: [
       { key: "vertical_radius", label: "Radius", min: 2, max: 40, step: 1 },
       { key: "vertical_gap", label: "Gap", min: 0, max: 40, step: 1 },
-      // {
-      //   key: "vertical_start",
-      //   label: "Start Offset",
-      //   min: 0,
-      //   max: 80,
-      //   step: 1,
-      // },
-      // { key: "vertical_end", label: "End Offset", min: 0, max: 80, step: 1 },
     ],
   },
   {
@@ -116,7 +100,3 @@ export const SLIDERS = [
   },
 ];
 
-// top_left_corner: 2,
-// bottom_left_corner: 2,
-// top_right_corner: 2,
-// bottom_right_corner: 2,

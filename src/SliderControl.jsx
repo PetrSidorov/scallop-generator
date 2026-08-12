@@ -9,7 +9,7 @@ export function SliderControl({
   name,
 }) {
   const pct = ((value - min) / (max - min)) * 100;
-  const isPixel = !["cut_depth", "ellipse_ratio"].includes(label);
+  const isPixel = !["cut_depth", "ellipse_ratio"].includes(name);
   const displayVal = Number.isInteger(step) ? value : value.toFixed(2);
 
   return (
