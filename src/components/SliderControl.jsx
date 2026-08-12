@@ -15,7 +15,7 @@ export function SliderControl({
   return (
     <div className="slider-row">
       <div className="slider-meta">
-        <span className="slider-label">{label}</span>
+        <label className="slider-label" htmlFor={name}>{label}</label>
         <span className="slider-val" style={{ color }}>
           {displayVal}
           {isPixel ? "px" : ""}
@@ -27,6 +27,8 @@ export function SliderControl({
           style={{ width: `${pct}%`, background: color }}
         />
         <input
+          id={name}
+          name={name}
           type="range"
           min={min}
           max={max}
