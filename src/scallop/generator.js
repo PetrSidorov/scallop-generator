@@ -108,7 +108,7 @@ ${css}
 </html>`;
 }
 
-export function buildCode() {
+export function buildHTML() {
   return `<div class="scallop-wrapper">
   <div class="scallop-wrapper__edge-top"></div>
   <div class="scallop-wrapper__edge-right"></div>

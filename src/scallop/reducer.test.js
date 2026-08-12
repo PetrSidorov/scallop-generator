@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { DEFAULT_STATE } from "./constants";
 import { reducer } from "./reducer";
-import { mirrorToVertical } from "./utils";
+import { mirrorToVertical } from "./generator";
 
 describe("mirrorToVertical", () => {
   it("mirrors horizontal edge values to vertical values", () => {

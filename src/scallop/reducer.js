@@ -1,4 +1,4 @@
-import { mirrorToVertical } from "./utils";
+import { mirrorToVertical } from "./generator";
 import { DEFAULT_STATE } from "./constants";
 export function reducer(state, action) {
   switch (action.type) {

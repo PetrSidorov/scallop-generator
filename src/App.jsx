@@ -1,9 +1,9 @@
 import { useReducer, useState } from "react";
-import { DEFAULT_STATE, SLIDERS, EDGES } from "./constants";
-import { reducer } from "./reducer";
-import { buildCSS } from "./utils";
-import { buildCode } from "./utils";
-import { buildFullTemplate } from "./utils";
+import { DEFAULT_STATE, SLIDERS, EDGES } from "./scallop/constants";
+import { reducer } from "./scallop/reducer";
+import { buildCSS } from "./scallop/generator";
+import { buildHTML } from "./scallop/generator";
+import { buildFullTemplate } from "./scallop/generator";
 import { SliderControl } from "./SliderControl";
 
 export default function App() {
@@ -20,7 +20,7 @@ export default function App() {
       kind === "css"
         ? buildCSS(exportVars)
         : kind === "html"
-          ? buildCode()
+          ? buildHTML()
           : buildFullTemplate(exportVars, frameColor);
     await navigator.clipboard.writeText(text);
     setCopied(kind);
@@ -262,7 +262,7 @@ export default function App() {
         </div>
         <pre className="code-block">
           <code>
-            {activeTab === "html" ? buildCode() : buildCSS(exportVars)}
+            {activeTab === "html" ? buildHTML() : buildCSS(exportVars)}
           </code>
         </pre>
       </section>

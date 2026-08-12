@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { DEFAULT_STATE } from "./constants";
-import { buildCSS, buildFullTemplate } from "./utils";
+import { buildCSS, buildFullTemplate } from "./generator";
 
 function makeVars(overrides = {}) {
   return {
