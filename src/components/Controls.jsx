@@ -6,7 +6,7 @@ export function Controls({
   frameColor,
   synced,
   syncEdges,
-  copied,
+  copyStatus,
   onSetFrameColor,
   onSetScallopColor,
   onToggleSync,
@@ -120,10 +120,18 @@ export function Controls({
         </button>
 
         <button
-          className={`btn-copy ${copied === "preview" ? "copied" : ""}`}
+          className={`btn-copy ${
+            copyStatus?.kind === "preview" && copyStatus.status === "success"
+              ? "copied"
+              : ""
+          }`}
           onClick={onCopyStandalone}
         >
-          {copied === "preview" ? "✓ Copied!" : "⎘ Standalone file"}
+          {copyStatus?.kind === "preview"
+            ? copyStatus.status === "success"
+              ? "✓ Copied!"
+              : "Copy failed"
+            : "⎘ Standalone file"}
         </button>
       </div>
     </aside>

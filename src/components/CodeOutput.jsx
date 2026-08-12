@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { buildCSS, buildHTML } from "../scallop/generator";
 
-export function CodeOutput({ exportVars, copied, onCopy }) {
+export function CodeOutput({ exportVars, copyStatus, onCopy }) {
   const [activeTab, setActiveTab] = useState("html");
 
   return (
@@ -25,24 +25,48 @@ export function CodeOutput({ exportVars, copied, onCopy }) {
 
         <div className="copy-actions">
           <button
-            className={`btn-copy-sm ${copied === "css" ? "copied" : ""}`}
+            className={`btn-copy-sm ${
+              copyStatus?.kind === "css" && copyStatus.status === "success"
+                ? "copied"
+                : ""
+            }`}
             onClick={() => onCopy("css")}
           >
-            {copied === "css" ? "✓" : "⎘"} CSS
+            {copyStatus?.kind === "css"
+              ? copyStatus.status === "success"
+                ? "✓ CSS"
+                : "Copy failed"
+              : "⎘ CSS"}
           </button>
 
           <button
-            className={`btn-copy-sm ${copied === "html" ? "copied" : ""}`}
+            className={`btn-copy-sm ${
+              copyStatus?.kind === "html" && copyStatus.status === "success"
+                ? "copied"
+                : ""
+            }`}
             onClick={() => onCopy("html")}
           >
-            {copied === "html" ? "✓" : "⎘"} HTML
+            {copyStatus?.kind === "html"
+              ? copyStatus.status === "success"
+                ? "✓ HTML"
+                : "Copy failed"
+              : "⎘ HTML"}
           </button>
 
           <button
-            className={`btn-copy-sm highlight ${copied === "preview" ? "copied" : ""}`}
+            className={`btn-copy-sm highlight ${
+              copyStatus?.kind === "preview" && copyStatus.status === "success"
+                ? "copied"
+                : ""
+            }`}
             onClick={() => onCopy("preview")}
           >
-            {copied === "preview" ? "✓ Copied!" : "⎘ Standalone file"}
+            {copyStatus?.kind === "preview"
+              ? copyStatus.status === "success"
+                ? "✓ Copied!"
+                : "Copy failed"
+              : "⎘ Standalone file"}
           </button>
         </div>
       </div>
